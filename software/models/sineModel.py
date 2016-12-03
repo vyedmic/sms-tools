@@ -199,11 +199,11 @@ def sineModelMultiRes(x, fs, (w1, w2, w3), (N1, N2, N3), t, (B1, B2, B3)):
 
         # -----synthesis-----
         Y = UF.genSpecSines(ipfreq, ipmag, ipphase, Ns, fs)  # generate sines in the spectrum
-        fftbuffer = np.real(ifft(Y))  # compute inverse FFT
-        yw[:hNs - 1] = fftbuffer[hNs + 1:]  # undo zero-phase window
+        fftbuffer = np.real(ifft(Y))                         # compute inverse FFT
+        yw[:hNs - 1] = fftbuffer[hNs + 1:]                   # undo zero-phase window
         yw[hNs - 1:] = fftbuffer[:hNs + 1]
-        y[pin - hNs:pin + hNs] += sw * yw  # overlap-add and apply a synthesis window
-        pin += H  # advance sound pointer
+        y[pin - hNs:pin + hNs] += sw * yw                    # overlap-add and apply a synthesis window
+        pin += H                                             # advance sound pointer
     return y
 
 def sineModelAnal(x, fs, w, N, H, t, maxnSines = 100, minSineDur=.01, freqDevOffset=20, freqDevSlope=0.01):
